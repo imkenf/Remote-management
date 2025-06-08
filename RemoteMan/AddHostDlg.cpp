@@ -57,7 +57,7 @@ BOOL CAddHostDlg::OnInitDialog()
 
 	// TODO:  在此添加额外的初始化
 	CComboBox *pBox = (CComboBox*)GetDlgItem(IDC_COMBO_CTRLMODE);
-	for(int i=0; i<sizeof(CTRL_MODE)/sizeof(CTRL_MODE[0]);i++)
+	for(int i=0; i<_countof(CTRL_MODE);i++)
 	{
 		pBox->AddString(CTRL_MODE[i]);
 	}
@@ -72,9 +72,10 @@ BOOL CAddHostDlg::OnInitDialog()
 		pBox->SetCurSel(m_Host.CtrlMode);
 		SetDlgItemInt(IDC_EDIT_HOSTPORT,m_Host.HostPort);
 		SetDlgItemText(IDC_EDIT_HOSTADDR,m_Host.HostAddress);
-		SetDlgItemText(IDC_EDIT_HOSTNAME,m_Host.Name);
+		SetDlgItemText(IDC_EDIT_HOSTNAME, m_Host.Name);
+		SetDlgItemText(IDC_EDIT_MAC, m_Host.MacAddr);
 		SetDlgItemText(IDC_COMBO_USER,m_Host.Account);
-		SetDlgItemText(IDC_EDIT_README,m_Host.ReadMe);
+		SetDlgItemText(IDC_EDIT_README, m_Host.ReadMe);
 		SetWindowText("编辑主机");
 		SetDlgItemText(IDOK,"确定");
 		SetDlgItemText(IDCANCEL,"取消");
@@ -89,6 +90,43 @@ BOOL CAddHostDlg::OnInitDialog()
 	// 异常: OCX 属性页应返回 FALSE
 }
 
+bool FormatMac(char const *src, char *dst)
+{
+	UCHAR buff[24], n = 0;
+	int len = strlen(src);
+	*dst = 0;
+	if (len != 12 && len != 17)
+		return false;
+	for (int i = 0; i < len;)
+	{
+		char ch = src[i++];
+		char cl = src[i++];
+		if (len == 17 && i != 17)
+		{
+			char c = src[i++];
+			if (c != ':' && c != '-') return false;
+		}
+		if (ch >= '0' && ch <= '9')
+			ch -= '0';
+		else if (ch >= 'A' && ch <= 'F')
+			ch -= 'A' - 10;
+		else if (ch >= 'a' && ch <= 'f')
+			ch -= 'a' - 10;
+		else
+			return false;
+		if (cl >= '0' && cl <= '9')
+			cl -= '0';
+		else if (cl >= 'A' && cl <= 'F')
+			cl -= 'A' - 10;
+		else if (cl >= 'a' && cl <= 'f')
+			cl -= 'a' - 10;
+		else
+			return false;
+		buff[n++] = ch * 16 + cl;
+	}
+	sprintf_s(dst, 18, "%02X:%02X:%02X:%02X:%02X:%02X", buff[0], buff[1], buff[2], buff[3], buff[4], buff[5]);
+	return true;
+}
 
 void CAddHostDlg::OnBnClickedOk()
 {
@@ -122,6 +160,11 @@ void CAddHostDlg::OnBnClickedOk()
 		MessageBox("主机端口设置错误","错误",MB_ICONERROR);
 		return;
 	}
+	//MAC地址
+	GetDlgItemText(IDC_EDIT_MAC, str);
+	str.Trim();
+	if (!FormatMac(str, m_Host.MacAddr))
+		SetDlgItemText(IDC_EDIT_MAC, "");
 	//控制模式
 	m_Host.CtrlMode=((CComboBox*)GetDlgItem(IDC_COMBO_CTRLMODE))->GetCurSel();
 	//用户名
@@ -176,7 +219,7 @@ void CAddHostDlg::SetCtrlModeDefPort(int CtrlMode)
 		SetDlgItemInt(IDC_EDIT_HOSTPORT,4899);
 	else if (strcmp(CTRL_MODE[CtrlMode],CTRL_MODE_SSH_NAME)==0)
 		SetDlgItemInt(IDC_EDIT_HOSTPORT,22);
-	else if (strcmp(CTRL_MODE[CtrlMode],CTRL_MODE_VNC_NAME)==0)
+	else if (strcmp(CTRL_MODE[CtrlMode],CTRL_MODE_TIGHTVNC_NAME)==0)
 		SetDlgItemInt(IDC_EDIT_HOSTPORT,5900);
 }
 

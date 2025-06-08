@@ -81,6 +81,7 @@ public:
 	void OnMenuClickedAddHost(void);
 	void OnMenuClickedEditHost(void);
 	void OnMenuClickedDelHost(void);
+	void OnMenuClickedHostWake(void);
 	void OnToolbarClickedOpenMstsc(void);
 	void OnToolbarClickedOpenRadmin(void);
 	void OnToolbarClickedOpenSSH(void);

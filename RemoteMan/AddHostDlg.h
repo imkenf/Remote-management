@@ -12,6 +12,7 @@ struct HOST_STRUCT
 	int		CtrlMode;
 	char	HostAddress[64];
 	USHORT	HostPort;
+	char	MacAddr[18];
 	char	Account[32];
 	char	Password[66];
 	char	ReadMe[256];

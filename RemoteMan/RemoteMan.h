@@ -15,11 +15,12 @@
 
 #define PASSWORD_MAXLEN			31
 
-#define CTRL_MODE_RDP_NAME		"RDP"
-#define CTRL_MODE_RADMIN_NAME	"Radmin"
-#define CTRL_MODE_SSH_NAME		"SSH"
-#define CTRL_MODE_VNC_NAME		"VNC"
-extern char const CTRL_MODE[4][7];
+#define CTRL_MODE_RDP_NAME			"RDP"
+#define CTRL_MODE_RADMIN_NAME		"Radmin"
+#define CTRL_MODE_SSH_NAME			"SSH"
+#define CTRL_MODE_TIGHTVNC_NAME		"TightVNC"
+#define CTRL_MODE_REALVNC_NAME		"RealVNC"
+extern char const CTRL_MODE[5][9];
 
 // CRemoteManApp:
 // 有关此类的实现，请参阅 RemoteMan.cpp

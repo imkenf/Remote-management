@@ -23,11 +23,11 @@ CSysSetDlg::CSysSetDlg(CONFIG_STRUCT const *pConfig, CWnd* pParent/* = NULL*/)
 	, m_RadminPath(pConfig->RadminPath)
 	, m_SshPath(pConfig->SSHPath)
 	, m_WinScpPath(pConfig->WinScpPath)
-	, m_VNCPath(pConfig->VNCPath)
+	, m_TightVNCPath(pConfig->TightVNCPath)
+	, m_RealVNCPath(pConfig->RealVNCPath)
 	, m_SSHFormat(pConfig->SSHParamFormat)
 	, m_TimeOut(pConfig->CheckOnlineTimeOut)
 	, m_SrcPassword("******")
-	, m_VNCType(pConfig->VNCType)
 {
 
 }
@@ -49,10 +49,10 @@ void CSysSetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_SSH_PATH, m_SshPath);
 	DDX_Text(pDX, IDC_EDIT_SRCPSAAWORD, m_SrcPassword);
 	DDX_Text(pDX, IDC_EDIT_TIMEOUT, m_TimeOut);
-	DDX_Text(pDX, IDC_EDIT_VNC_PATH, m_VNCPath);
+	DDX_Text(pDX, IDC_EDIT_TIGHTVNC_PATH, m_TightVNCPath);
+	DDX_Text(pDX, IDC_EDIT_REALVNC_PATH, m_RealVNCPath);
 	DDX_Text(pDX, IDC_EDIT_SSH_FROMAT, m_SSHFormat);
 	DDX_Text(pDX, IDC_EDIT_WINSCP_PATH, m_WinScpPath);
-	DDX_CBIndex(pDX, IDC_COMBO_VNCTYPE, m_VNCType);
 }
 
 

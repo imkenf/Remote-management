@@ -12,9 +12,9 @@ struct CONFIG_STRUCT{
 	char RadminPath[256];				//RADMIN路径，如果为空，则为同目录下的radmin.exe
 	char SSHPath[256];					//SSH路径
 	char WinScpPath[256];				//WinScp的路径
-	char VNCPath[256];					//VNC路径，如果为空，则为同目录下的VNC.exe
+	char TightVNCPath[256];				//VNC路径，如果为空，则为同目录下的VNC.exe
+	char RealVNCPath[256];				//VNC路径，如果为空，则为同目录下的VNC.exe
 	char SSHParamFormat[64];			//SSH命令行的参数格式，%1:地址 %2:端口 %3:帐户 %4:密码,如果为空，根据文件名自动选择
-	int  VNCType;						//VNC类型，0：RealVNC, 1：TightVNC
 	int  CheckOnlineTimeOut;			//在线检测超时时间ms
 	bool MstscConsole;					//远程桌面使用Console连接
 	bool MstscUseDrive;					//是否连接本地分区
@@ -63,9 +63,9 @@ public:
 	afx_msg void OnBnClickedOk();
 	virtual BOOL OnInitDialog();
 	void OnBnClickedSelPath(UINT Id);
-	CString m_VNCPath;
+	CString m_TightVNCPath;
+	CString m_RealVNCPath;
 	CString m_SSHFormat;
 	afx_msg void OnBnClickedBtnSshFormatHelp();
 	CString m_WinScpPath;
-	int m_VNCType;
 };

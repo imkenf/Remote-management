@@ -178,7 +178,7 @@ static int mergeArrayToInt(int array[4]) {
 /**
  * 常量轮值表
  */
-static const int Rcon[10] = { 0x01000000, 0x02000000,
+static const UINT Rcon[10] = { 0x01000000, 0x02000000,
 	0x04000000, 0x08000000,
 	0x10000000, 0x20000000,
 	0x40000000, 0x80000000,
